@@ -116,6 +116,21 @@ h1 {
     line-height: 1.8;
     margin-top: 20px;
 }
+    #musicButton {
+    margin-top: 25px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff69b4, #b19cd9);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(214,107,168,0.3);
+}
+
+#musicButton:hover {
+    transform: scale(1.08);
+}
 
 @keyframes pulse {
     50% { transform: scale(1.08); }
@@ -227,6 +242,13 @@ h1 {
 
         <div class="poppers">💗 🧸 🌸 💗</div>
 
+    <button id="musicButton" onclick="playMusic()" style="display:none;">
+    🎵 Tap to hear our song 💗
+</button>
+
+<audio id="birthdaySong" loop>
+    <source src="YOUR_AUDIO_FILE_URL_HERE" type="audio/mpeg">
+</audio>
     </div>
 
 </div>
@@ -269,7 +291,16 @@ function updateCountdown() {
 
 function celebrate() {
 
-    // Launch colourful confetti
+   function celebrate() {
+
+    // Start birthday song 🎵
+    const song = document.getElementById("birthdaySong");
+
+    song.play().catch(() => {
+        document.getElementById("musicButton").style.display = "inline-block";
+    });
+
+    // Confetti explosion 🎉
     for (let i = 0; i < 180; i++) {
 
         setTimeout(() => {
@@ -277,7 +308,6 @@ function celebrate() {
             const confetti = document.createElement("div");
 
             confetti.className = "confetti";
-
             confetti.style.left = Math.random() * 100 + "vw";
 
             confetti.style.backgroundColor =
@@ -294,7 +324,17 @@ function celebrate() {
         }, i * 15);
     }
 }
+// Play our romantic birthday song 🎵
+function playMusic() {
+    const song = document.getElementById("birthdaySong");
 
+    song.play().then(() => {
+        document.getElementById("musicButton").innerText =
+            "🎶 Our song is playing 💗";
+    }).catch(() => {
+        alert("Please check your song audio link!");
+    });
+}
 // Floating hearts
 function createHeart() {
 
